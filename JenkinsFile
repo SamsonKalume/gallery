@@ -11,12 +11,12 @@ pipeline {
     }
     stage('Build the project') {
       steps { 
-        sh 'gradle build'
+        sh 'npm install'
       }
     }
-    stage('Tests') {
+    stage('Run Tests') {
       steps { 
-        sh 'gradle test'
+        sh 'npm test'
       }
     }
   }
