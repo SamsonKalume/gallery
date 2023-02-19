@@ -20,6 +20,14 @@ pipeline {
       }
     }
   }
+  post {
+    success {
+      slackSend color: 'good', message: 'Successfuly Deployed',tokenCredentailId:'tokencredentialid',channel: 'slacknotification'
+    }
+    failure {
+      slackSend color: '#ff0000', message: 'The Build failed :(',tokenCredentailId:'tokencredentialid',channel: 'slacknotification'
+    }
+  }
 }
 
 
