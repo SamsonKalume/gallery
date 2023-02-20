@@ -24,13 +24,14 @@ pipeline {
         sh 'npm test'
       }
     }
+    
     stage('Deploy to Render') {
       steps {
         withCredentials([string(credentialsId: 'render-email', variable: 'RENDER_EMAIL'), string(credentialsId: 'render-password', variable: 'RENDER_PASSWORD')]) {
           sh "curl -X POST -u ${env.RENDER_EMAIL}:${env.RENDER_PASSWORD} -d '{}' https://dashboard.render.com/api/service/${env.RENDER_SERVICE_NAME}/deploy"
         }
       }
-
+    }
   }
   post {
     success {
@@ -41,5 +42,5 @@ pipeline {
     }
   }
 }
-}
+
 
