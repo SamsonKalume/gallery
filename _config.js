@@ -4,6 +4,7 @@ var config = {}
 config.mongoURI = {
     test: 'mongodb+srv://samsonkalume:S@ltwaterF!sh@cluster0.igojkog.mongodb.net/?retryWrites=true&w=majority',
     production: 'mongodb+srv://samsonkalume:S@ltwaterF!sh@cluster0.igojkog.mongodb.net/?retryWrites=true&w=majority',
+    development: 'mongodb+srv://samsonkalume:S@ltwaterF!sh@cluster0.igojkog.mongodb.net/?retryWrites=true&w=majority',
     //production: 'mongodb+srv://samsonkalume:S@ltwaterF!sh@cluster0.igojkog.mongodb.net/darkroom?retryWrites=true&w=majority',
     //development: 'mongodb+srv://samsonkalume:S@ltwaterF!sh@cluster0.igojkog.mongodb.net/darkroom?retryWrites=true&w=majority',
     //test: 'mongodb+srv://samsonkalume:S@ltwaterF!sh@cluster0.igojkog.mongodb.net/darkroom?retryWrites=true&w=majority',
