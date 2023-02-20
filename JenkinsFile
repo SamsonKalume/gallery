@@ -22,9 +22,20 @@ pipeline {
     }
     
     stage('Deploy to Render') {
+      environment {
+        RENDER_EMAIL = credentials('samson.kalume@student.moringaschool.com')
+        RENDER_PASSWORD = credentials('Sa@ka@420N')
+        RENDER_ACCOUNT_ID = 'SamsonKalume'
+        RENDER_SERVICE_NAME = 'mygalleryapp'
+        GIT_REPO_URL = 'https://github.com/SamsonKalume/gallery'
+    }
       steps {
-        withCredentials([string(credentialsId: 'render-email', variable: 'RENDER_EMAIL'), string(credentialsId: 'render-password', variable: 'RENDER_PASSWORD')]) {
-          sh "curl -X POST -u ${env.RENDER_EMAIL}:${env.RENDER_PASSWORD} -d '{}' https://dashboard.render.com/api/service/${env.RENDER_SERVICE_NAME}/deploy"
+         script {
+                    sh 'echo $RENDER_PASSWORD | render login'
+                    sh 'render service get $RENDER_SERVICE_NAME || render service create $RENDER_SERVICE_NAME'
+                    sh 'render deploy $RENDER_SERVICE_NAME $GIT_REPO_URL --branch=master'
+                }
+         
         }
       }
     }
@@ -34,6 +45,7 @@ pipeline {
       slackSend color: 'good', message: 'Successfuly Deployed',tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
     }
     failure {
+      
       slackSend color: '#ff0000', message: "The Build has failed for stage: ${env.JOB_NAME} for build No: ${env.BUILD_NUMBER}",tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
     }
   }
