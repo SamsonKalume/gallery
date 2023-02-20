@@ -25,7 +25,7 @@ pipeline {
       slackSend color: 'good', message: 'Successfuly Deployed',tokenCredentailId:'tokencredentialid',channel: 'slacknotification'
     }
     failure {
-      slackSend color: '#ff0000', message: 'The Build failed',tokenCredentailId:'tokencredentialid',channel: 'slacknotification'
+      slackSend color: '#ff0000', message: 'The Build has failed for build No: ${env.BUILD_NUMBER}',tokenCredentailId:'tokencredentialid',channel: 'slacknotification'
     }
   }
 }
