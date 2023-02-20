@@ -1,8 +1,6 @@
 pipeline { 
   agent any
-  environment {
-        RENDER_API_KEY = credentials('rnd_kr5Th729guOuIIrhlMOwKF81hY9s')
-    }
+  
   tools { 
     nodejs "node"
   }
@@ -26,7 +24,7 @@ pipeline {
     stage('Deploy to Render') {
       
        steps {
-                sh 'curl -X POST "https://render.com/api/v1/deployments" -H "Authorization: Basic ${RENDER_API_KEY}" -d "build.command=npm run build" -d "start.command=npm start"'
+                sh 'curl -X POST "https://render.com/api/v1/deployments" -H "Authorization: Basic ${env.RENDER_API_KEY}" -d "build.command=npm run build" -d "start.command=npm start"'
             }
     }
   }
