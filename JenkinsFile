@@ -1,10 +1,6 @@
 pipeline { 
   agent any
-  environment {
-    RENDER_EMAIL = credentials('samson.kalume@student.moringaschool.com')
-    RENDER_PASSWORD = credentials('Sa@ka@420N')
-    RENDER_SERVICE_NAME = 'mygalleryapp'
-  }
+  
   tools { 
     nodejs "node"
   }
