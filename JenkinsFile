@@ -22,24 +22,18 @@ pipeline {
     }
     
     stage('Deploy to Render') {
-      environment {
-        RENDER_EMAIL = credentials('samson.kalume@student.moringaschool.com')
-        RENDER_PASSWORD = credentials('Sa@ka@420N')
-        RENDER_ACCOUNT_ID = 'SamsonKalume'
-        RENDER_SERVICE_NAME = 'mygalleryapp'
-        GIT_REPO_URL = 'https://github.com/SamsonKalume/gallery'
-    }
+      
       steps {
          script {
-                    sh 'echo $RENDER_PASSWORD | render login'
-                    sh 'render service get $RENDER_SERVICE_NAME || render service create $RENDER_SERVICE_NAME'
-                    sh 'render deploy $RENDER_SERVICE_NAME $GIT_REPO_URL --branch=master'
-                }
+                    withCredentials([string(credentialsId: 'rnd_kr5Th729guOuIIrhlMOwKF81hY9s', variable: 'RENDER_TOKEN')]) {
+                        sh 'curl -X POST "https://render.com/api/v1/deployments" -H "Authorization: Bearer ${RENDER_TOKEN}" -d "build.command=npm run build" -d "start.command=npm start"'
+                    }
          
         }
       }
     }
   }
+}
   post {
     success {
       slackSend color: 'good', message: 'Successfuly Deployed',tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
