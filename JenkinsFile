@@ -49,6 +49,6 @@ pipeline {
       slackSend color: '#ff0000', message: "The Build has failed for stage: ${env.JOB_NAME} for build No: ${env.BUILD_NUMBER}",tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
     }
   }
-}
+
 
 
