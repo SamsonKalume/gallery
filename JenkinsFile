@@ -19,6 +19,22 @@ pipeline {
         sh 'npm test'
       }
     }
+    stage('Deploy to Render') {
+  steps {
+    script {
+      withCredentials([usernamePassword(credentialsId: 'render_login', usernameVariable: 'RENDER_EMAIL', passwordVariable: 'RENDER_PASSWORD')]) {
+        def render = [:]
+        render['sh'] = """
+          render login --email ${env.RENDER_EMAIL} --password ${env.RENDER_PASSWORD}
+          render service get --name ${env.RENDER_SERVICE_NAME} || render service create --name ${env.RENDER_SERVICE_NAME} --plan ${env.RENDER_PLAN} --region ${env.RENDER_REGION}
+          render service env --name ${env.RENDER_SERVICE_NAME} --set ${env.RENDER_ENV_VARS}
+          render service deploy --name ${env.RENDER_SERVICE_NAME} --branch ${env.GIT_BRANCH}
+        """
+        sh render
+      }
+    }
+  }
+}
   }
   post {
     success {
