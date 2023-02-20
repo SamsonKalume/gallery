@@ -28,7 +28,7 @@ pipeline {
             }
     }
   }
-}
+
   post {
     success {
       slackSend color: 'good', message: 'Successfuly Deployed',tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
@@ -39,5 +39,5 @@ pipeline {
     }
   }
 
-
+}
 
