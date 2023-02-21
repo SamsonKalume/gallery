@@ -23,8 +23,8 @@ pipeline {
     
     stage('Deploy to Render') {
       environment {
-        RENDER_EMAIL = credentials('render-email')
-        RENDER_PASSWORD = credentials('render-password')
+        RENDER_EMAIL = credentials('RENDER_EMAIL')
+        RENDER_PASSWORD = credentials('RENDER_PASSWORD')
       }
        steps {
                 sh 'render login --email $RENDER_EMAIL --password $RENDER_PASSWORD'
