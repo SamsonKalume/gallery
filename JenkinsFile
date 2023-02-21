@@ -35,9 +35,17 @@ pipeline {
   post {
     success {
       slackSend color: 'good', message: "Successfully Deployed to https://galleryapp-7vky.onrender.com/: ${env.JOB_NAME} for build No: ${env.BUILD_NUMBER}",tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
+
+      emailext body: "Build #${BUILD_NUMBER} ${currentBuild.currentResult}: Deployment to Render completed successfully",
+         subject: 'Render Deployment Notification',
+         to: 'samson.kalume@student.moringaschool.com'
+
     }
     failure {
-      
+      emailext body: "Build #${BUILD_NUMBER} ${currentBuild.currentResult}: Deployment to Render has failed!",
+         subject: 'Render Deployment Notification',
+         to: 'samson.kalume@student.moringaschool.com'
+
       slackSend color: '#ff0000', message: "The Build has failed for stage: ${env.JOB_NAME} for build No: ${env.BUILD_NUMBER}",tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
     }
   }
