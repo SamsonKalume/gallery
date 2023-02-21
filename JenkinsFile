@@ -34,7 +34,7 @@ pipeline {
 
   post {
     success {
-      slackSend color: 'good', message: 'Successfuly Deployed',tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
+      slackSend color: 'good', message: "Successfully Deployed to https://galleryapp-7vky.onrender.com/: ${env.JOB_NAME} for build No: ${env.BUILD_NUMBER}",tokenCredentialId:'tokencredentialid',channel: 'slacknotification'
     }
     failure {
       
