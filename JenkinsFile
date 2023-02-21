@@ -27,7 +27,7 @@ pipeline {
         RENDER_PASSWORD = credentials('RENDER_PASSWORD')
       }
        steps {
-                sh 'render login --email $RENDER_EMAIL --password $RENDER_PASSWORD'
+                 sh 'curl -X POST "https://render.com/api/v1/deployments" -u "${RENDER_EMAIL}:${RENDER_PASSWORD}" -d "build.command=npm run build" -d "start.command=npm start"'
             }
     }
   }
